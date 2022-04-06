@@ -2,17 +2,16 @@ var billAmount = document.querySelector("#bill-amount");
 var btnCheck = document.querySelector("#btn-check");
 var cashGiven = document.querySelector("#cash-given");
 var errorMsg = document.querySelector("#error-msg");
+var numOfNotesArr = document.querySelectorAll(".num-of-notes");
+
+var availableNotes = [2000,500,100,20,10,5,1];
 
 btnCheck.addEventListener("click", function validateBillAndCash() {
     hideMessage();
-    console.log(billAmount.value);
-    console.log(cashGiven.value);
     if(Number(billAmount.value) > 0) {
-        console.log("INSIDE BILL AMOUNT");
         if( Number(cashGiven.value) >= Number(billAmount.value) ) {
-            console.log("INSIDE CASHGIVEN");
-            var amountToBeReturned = cashGiven.value - billAmount.value;
-            // calculateChange(amountToBeReturned); 
+            var amountToBeReturned = (Number(cashGiven.value)) - (Number(billAmount.value));
+            calculateChange(amountToBeReturned); 
         }
         else {
             printError("cash given is lesser than bill amount");
@@ -24,17 +23,19 @@ btnCheck.addEventListener("click", function validateBillAndCash() {
     }
 })
 
-// function calculateChange() {
-
-// }
+function calculateChange(amountToBeReturned) {
+    for(let i=0; i<availableNotes.length; i++) {
+        var numberOfNotes = Math.trunc(amountToBeReturned/availableNotes[i]);
+        amountToBeReturned = amountToBeReturned%availableNotes[i];
+        numOfNotesArr[i].innerText = numberOfNotes;
+    }
+}
 
 function hideMessage() {
-    console.log("HIDE MSG");
     errorMsg.style.display = "none";
 }
 
 function printError(message) {
-    console.log("PRINT MSG");
     errorMsg.style.display = "block";
     errorMsg.innerText = message;
 }

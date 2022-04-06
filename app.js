@@ -1,13 +1,18 @@
-const billAmount = document.querySelector("#bill-amount");
-const btnCheck = document.querySelector("#btn-check");
-const cashGiven = document.querySelector("#cash-given");
-const errorMsg = document.querySelector("#error-msg");
+var billAmount = document.querySelector("#bill-amount");
+var btnCheck = document.querySelector("#btn-check");
+var cashGiven = document.querySelector("#cash-given");
+var errorMsg = document.querySelector("#error-msg");
 
 btnCheck.addEventListener("click", function validateBillAndCash() {
-    errorMsg.style.display = "none";
-    if(billAmount.value > 0) {
-        if(cashGiven.value >= billAmount.value) {
-
+    hideMessage();
+    console.log(billAmount.value);
+    console.log(cashGiven.value);
+    if(Number(billAmount.value) > 0) {
+        console.log("INSIDE BILL AMOUNT");
+        if( Number(cashGiven.value) >= Number(billAmount.value) ) {
+            console.log("INSIDE CASHGIVEN");
+            var amountToBeReturned = cashGiven.value - billAmount.value;
+            // calculateChange(amountToBeReturned); 
         }
         else {
             printError("cash given is lesser than bill amount");
@@ -19,7 +24,17 @@ btnCheck.addEventListener("click", function validateBillAndCash() {
     }
 })
 
+// function calculateChange() {
+
+// }
+
+function hideMessage() {
+    console.log("HIDE MSG");
+    errorMsg.style.display = "none";
+}
+
 function printError(message) {
+    console.log("PRINT MSG");
     errorMsg.style.display = "block";
     errorMsg.innerText = message;
 }
